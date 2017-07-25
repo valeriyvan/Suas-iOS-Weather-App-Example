@@ -1,1 +1,2 @@
-github "zendesk/suas-ios" "master"
+github "zendesk/suas-ios" "removing-monitor-middleware"
+github "zendesk/suasmonitormiddleware" "master"
