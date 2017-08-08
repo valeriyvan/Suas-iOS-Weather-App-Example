@@ -10,12 +10,14 @@ import UIKit
 import Suas
 
 
-class SearchLocationViewController: UITableViewController, UISearchResultsUpdating, Component {
+class SearchLocationViewController: UITableViewController, UISearchResultsUpdating {
 
   var searchController: UISearchController!
 
-  var state: FoundLocations = store.state.valueOrFail(forKeyOfType: FoundLocations.self) {
+  // Locations are loaded from the store state by default
+  var foundLocations: FoundLocations = store.state.value(forKeyOfType: FoundLocations.self)! {
     didSet {
+      // Reload table when state changes
       tableView.reloadData()
     }
   }
@@ -30,51 +32,47 @@ class SearchLocationViewController: UITableViewController, UISearchResultsUpdati
     definesPresentationContext = true
     tableView.tableHeaderView = searchController.searchBar
 
-    store.connect(component: self)
-    store.connectActionListener(toComponent: self) { action in
+    // Add a listener and link the listener lifecycle to self
+    // When self is deallocated the reducer is removed
+    // Notice: we use [weak self] to prevent retain cycles
+    store.addListener(forStateType: FoundLocations.self) { [weak self] state in
+      self?.foundLocations = state
+    }.linkLifeCycleTo(object: self)
+
+    // Add an action listener and link the listener lifecycle to self
+    // When self is deallocated the reducer is removed
+    // Notice: we use [weak self] to prevent retain cycles
+    store.addActionListener { [weak self] action in
+
+      // If action is LocationSelected, we pop the view controller
       if action is LocationSelected {
-        self.navigationController?.popViewController(animated: true)
+        self?.navigationController?.popViewController(animated: true)
       }
-    }
+    }.linkLifeCycleTo(object: self)
+    
   }
 
   func updateSearchResults(for searchController: UISearchController) {
     let text = searchController.searchBar.text ?? ""
     guard text.characters.count > 2 else { return }
 
-    let string = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
-    let url = URL(string: "https://autocomplete.wunderground.com/aq?query=\(string)")!
-
-    let action = AsyncAction.forURLSession(url: url) { data, resp, error, dispatch in
-      let resp = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
-      let result = resp["RESULTS"] as! [[String: Any]]
-
-      let cities = result.map({
-        Location(name: $0["name"] as! String,
-                 lat: Float($0["lat"] as! String)!,
-                 lon: Float($0["lon"] as! String)!,
-                 query: $0["l"] as! String
-                 )
-      })
-
-      dispatch(LocationsAdded(query: text, locations: cities))
-    }
-    
-    store.dispatch(action: action)
+    // Dispatch the async fetch notwork action to fetch cities
+    store.dispatch(action: createSearchForLocationsAction(query: text))
   }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return state.foundLocation.count
+    return foundLocations.foundLocation.count
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-    cell.textLabel?.text = state.foundLocation[indexPath.row].name
+    cell.textLabel?.text = foundLocations.foundLocation[indexPath.row].name
     return cell
   }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let action = LocationSelected(location: state.foundLocation[indexPath.row])
+    // When selecting a location we dispatch a new action. This action will update the state and pop the controller.
+    let action = LocationSelected(location: foundLocations.foundLocation[indexPath.row])
     store.dispatch(action: action)
   }
 }

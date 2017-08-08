@@ -11,9 +11,12 @@ import Suas
 import SuasMonitorMiddleware
 
 
+// Create a store with a combined reducer and list of middleware
 let store = Suas.createStore(
-  reducer: FindLocationReducer() |> MyLocationsReducer(),
-  middleware: AsyncMiddleware() |> MonitorMiddleware() |> LoggerMiddleware(showTimestamp: true, showDuration: true, lineLength: 100)
+  // Pass two reducers
+  reducer: FindLocationReducer() + CurrentLocationsReducer(),
+  // Pass a list of middlewares
+  middleware: AsyncMiddleware() + MonitorMiddleware() + LoggerMiddleware(showTimestamp: true, showDuration: true)
 )
 
 @UIApplicationMain

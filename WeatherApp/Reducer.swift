@@ -9,42 +9,53 @@
 import Foundation
 import Suas
 
+// Find location screen reducer
+// Reducer reduces found location state
 class FindLocationReducer: Reducer {
   var initialState: FoundLocations = FoundLocations(query: "", foundLocation: [])
 
-  func reduce(action: Action, state: FoundLocations) -> FoundLocations? {
-    if let action = action as? LocationsAdded {
+  func reduce(state: FoundLocations, action: Action) -> FoundLocations? {
+    
+    if let action = action as? LocationsFetchedFromNetwork {
+      // New locations were fetched from the network
       var newState = state
       newState.foundLocation = action.locations
       newState.query = action.query
       return newState
     }
 
+    // If action is unknown return nil to signify that state did not change
     return nil
   }
 }
 
-class MyLocationsReducer: Reducer {
+// Current Location reducer
+// Reduces my location state
+class CurrentLocationsReducer: Reducer {
   var initialState: MyLocations = MyLocations(locations: [], selectedLocation: nil)
 
-  func reduce(action: Action, state: MyLocations) -> MyLocations? {
+  func reduce(state: MyLocations, action: Action) -> MyLocations? {
 
     if let action = action as? LocationSelected {
+      // New location was selected
       var newState = state
       newState.locations += [action.location]
       return newState
     }
 
     if let action = action as? MyLocationsLoadedFromDisk {
+      // Location loaded from disk
       return action.locations
     }
 
     if let action = action as? ShowLocationDetails {
+      // Location selected showing details
       var newState = state
       newState.selectedLocation = action.location
       return newState
     }
 
+    // If action is unknown return nil to signify that state did not change
     return nil
   }
 }

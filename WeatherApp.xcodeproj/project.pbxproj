@@ -13,7 +13,6 @@
 		D77E305D1F26785B00E9572D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D77E305B1F26785B00E9572D /* LaunchScreen.storyboard */; };
 		D7ACA5951F2679B900EAD348 /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ACA58F1F2679B900EAD348 /* SearchLocationViewController.swift */; };
 		D7ACA5961F2679B900EAD348 /* LocationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ACA5901F2679B900EAD348 /* LocationsListViewController.swift */; };
-		D7ACA5971F2679B900EAD348 /* LocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ACA5911F2679B900EAD348 /* LocationDetailsView.swift */; };
 		D7ACA5981F2679B900EAD348 /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ACA5921F2679B900EAD348 /* Reducer.swift */; };
 		D7ACA5991F2679B900EAD348 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ACA5931F2679B900EAD348 /* Action.swift */; };
 		D7ACA59A1F2679B900EAD348 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ACA5941F2679B900EAD348 /* State.swift */; };
@@ -53,7 +52,6 @@
 		D77E305E1F26785B00E9572D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7ACA58F1F2679B900EAD348 /* SearchLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
 		D7ACA5901F2679B900EAD348 /* LocationsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsListViewController.swift; sourceTree = "<group>"; };
-		D7ACA5911F2679B900EAD348 /* LocationDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDetailsView.swift; sourceTree = "<group>"; };
 		D7ACA5921F2679B900EAD348 /* Reducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
 		D7ACA5931F2679B900EAD348 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		D7ACA5941F2679B900EAD348 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 				D77E30521F26785B00E9572D /* AppDelegate.swift */,
 				D7ACA58F1F2679B900EAD348 /* SearchLocationViewController.swift */,
 				D7ACA5901F2679B900EAD348 /* LocationsListViewController.swift */,
-				D7ACA5911F2679B900EAD348 /* LocationDetailsView.swift */,
 				D7ACA5921F2679B900EAD348 /* Reducer.swift */,
 				D7ACA5931F2679B900EAD348 /* Action.swift */,
 				D7ACA5941F2679B900EAD348 /* State.swift */,
@@ -196,7 +193,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7ACA5971F2679B900EAD348 /* LocationDetailsView.swift in Sources */,
 				D7ACA5951F2679B900EAD348 /* SearchLocationViewController.swift in Sources */,
 				D7ACA5981F2679B900EAD348 /* Reducer.swift in Sources */,
 				D7ACA5961F2679B900EAD348 /* LocationsListViewController.swift in Sources */,
@@ -345,7 +341,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = WeatherApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nsomar.WeatherApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -364,7 +360,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = WeatherApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nsomar.WeatherApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
