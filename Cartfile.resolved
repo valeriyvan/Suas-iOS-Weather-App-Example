@@ -1,3 +1,2 @@
-github "robbiehanson/CocoaAsyncSocket" "d0adf58ca694e733c75a8a157635e3deb66c061e"
-github "zendesk/suas-ios" "ea8bc2a185bc2217b686e3ab70191fa42add4c0f"
-github "zendesk/suas-ios-monitor-middleware" "dd1733468b9dff7d1b702ff354fe851181f67658"
+github "zendesk/suas-ios" "0db59da56a7e5cd03cae0392ab3098f2bc43bb9c"
+github "zendesk/suas-ios-monitor-middleware" "4213b6875f5f07b93a429de48b7c356c922d07d3"
