@@ -18,13 +18,10 @@
 		D7ACA59A1F2679B900EAD348 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ACA5941F2679B900EAD348 /* State.swift */; };
 		D7ACA59F1F2679D500EAD348 /* SuasMonitorMiddleware.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59C1F2679D500EAD348 /* SuasMonitorMiddleware.framework */; };
 		D7ACA5A01F2679D500EAD348 /* Suas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59D1F2679D500EAD348 /* Suas.framework */; };
-		D7ACA5A11F2679D500EAD348 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59E1F2679D500EAD348 /* CocoaAsyncSocket.framework */; };
 		D7ACA5A21F2679DE00EAD348 /* SuasMonitorMiddleware.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59C1F2679D500EAD348 /* SuasMonitorMiddleware.framework */; };
 		D7ACA5A31F2679DE00EAD348 /* SuasMonitorMiddleware.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59C1F2679D500EAD348 /* SuasMonitorMiddleware.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D7ACA5A41F2679DE00EAD348 /* Suas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59D1F2679D500EAD348 /* Suas.framework */; };
 		D7ACA5A51F2679DE00EAD348 /* Suas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59D1F2679D500EAD348 /* Suas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D7ACA5A61F2679DE00EAD348 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59E1F2679D500EAD348 /* CocoaAsyncSocket.framework */; };
-		D7ACA5A71F2679DE00EAD348 /* CocoaAsyncSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59E1F2679D500EAD348 /* CocoaAsyncSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,7 +31,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D7ACA5A71F2679DE00EAD348 /* CocoaAsyncSocket.framework in Embed Frameworks */,
 				D7ACA5A51F2679DE00EAD348 /* Suas.framework in Embed Frameworks */,
 				D7ACA5A31F2679DE00EAD348 /* SuasMonitorMiddleware.framework in Embed Frameworks */,
 			);
@@ -57,7 +53,6 @@
 		D7ACA5941F2679B900EAD348 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		D7ACA59C1F2679D500EAD348 /* SuasMonitorMiddleware.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SuasMonitorMiddleware.framework; path = Carthage/Build/iOS/SuasMonitorMiddleware.framework; sourceTree = SOURCE_ROOT; };
 		D7ACA59D1F2679D500EAD348 /* Suas.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Suas.framework; path = Carthage/Build/iOS/Suas.framework; sourceTree = SOURCE_ROOT; };
-		D7ACA59E1F2679D500EAD348 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,8 +60,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7ACA5A61F2679DE00EAD348 /* CocoaAsyncSocket.framework in Frameworks */,
-				D7ACA5A11F2679D500EAD348 /* CocoaAsyncSocket.framework in Frameworks */,
 				D7ACA5A21F2679DE00EAD348 /* SuasMonitorMiddleware.framework in Frameworks */,
 				D7ACA5A41F2679DE00EAD348 /* Suas.framework in Frameworks */,
 				D7ACA5A01F2679D500EAD348 /* Suas.framework in Frameworks */,
@@ -116,7 +109,6 @@
 			children = (
 				D7ACA59C1F2679D500EAD348 /* SuasMonitorMiddleware.framework */,
 				D7ACA59D1F2679D500EAD348 /* Suas.framework */,
-				D7ACA59E1F2679D500EAD348 /* CocoaAsyncSocket.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
