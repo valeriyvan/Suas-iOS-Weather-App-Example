@@ -47,24 +47,27 @@ func createSearchForLocationsAction(query: String) -> Action {
   let string = query.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
   let url = URL(string: "https://autocomplete.wunderground.com/aq?query=\(string)")!
 
-  // Create a`URLSessionAsyncAction` async action that fetches the url
-  let action = URLSessionAsyncAction(url: url) { data, resp, error, dispatch in
-    // Callback called with `data`, `response`, `error`, and `dispatch`
-    // Parse data to JSON
-    let resp = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
-    let result = resp["RESULTS"] as! [[String: Any]]
+  // Create a`BlockAsyncAction` async action that fetches the url
+  // Check another sample implementation here -> https://gist.github.com/nsomar/b47642d52b95b39fd9daddcd36aaf333
+  let action = BlockAsyncAction { (getState, dispatch) in
+    URLSession(configuration: .default).dataTask(with: url) { data, resp, error in
+      // Callback called with `data`, `response`, and `error`
+      // Parse data to JSON
+      let resp = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
+      let result = resp["RESULTS"] as! [[String: Any]]
 
-    // Create a list of cities from the JSON
-    let cities = result.map({
-      Location(name: $0["name"] as! String,
-               lat: Float($0["lat"] as! String)!,
-               lon: Float($0["lon"] as! String)!,
-               query: $0["l"] as! String
-      )
-    })
+      // Create a list of cities from the JSON
+      let cities = result.map({
+        Location(name: $0["name"] as! String,
+                 lat: Float($0["lat"] as! String)!,
+                 lon: Float($0["lon"] as! String)!,
+                 query: $0["l"] as! String
+        )
+      })
 
-    // Create a `LocationsFetchedFromNetwork` action that contains the fetched cities
-    dispatch(LocationsFetchedFromNetwork(query: query, locations: cities))
+      // Create a `LocationsFetchedFromNetwork` action that contains the fetched cities
+      dispatch(LocationsFetchedFromNetwork(query: query, locations: cities))
+    }.resume()
   }
 
   return action
@@ -74,27 +77,30 @@ func createSearchForLocationsAction(query: String) -> Action {
 func createFetchLocationDetailsAction(location: Location) -> Action {
   let url = URL(string: "http://api.wunderground.com/api/c57ef60f21274475/conditions/\(location.query).json")!
 
-  // `URLSessionAsyncAction` async action fetches a url
-  let action = URLSessionAsyncAction(url: url) { data, response, error, dispatch in
-    // Callback called with `data`, `response`, `error`, and `dispatch`
-    guard let data = data else { return }
+  // Create a`BlockAsyncAction` async action that fetches the url
+  // Check another sample implementation for URL AsyncAction here -> https://gist.github.com/nsomar/b47642d52b95b39fd9daddcd36aaf333
+  let action = BlockAsyncAction { (getState, dispatch) in
+    URLSession(configuration: .default).dataTask(with: url) { data, resp, error in
+      // Callback called with `data`, `response`, and`error`
+      guard let data = data else { return }
 
-    // Parse the data to JSON
-    let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-    let currentInfo = json["current_observation"] as! [String: Any]
+      // Parse the data to JSON
+      let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+      let currentInfo = json["current_observation"] as! [String: Any]
 
-    // Create a location details
-    let location = LocationDetails(
-      temperature: currentInfo["temperature_string"] as! String,
-      location: (currentInfo["display_location"] as! [String: Any])["full"] as! String,
-      weather: currentInfo["weather"] as! String,
-      percipitation: currentInfo["wind_string"] as! String,
-      wind: currentInfo["precip_today_string"] as! String,
-      iconUrl: currentInfo["icon_url"] as! String
-    )
+      // Create a location details
+      let location = LocationDetails(
+        temperature: currentInfo["temperature_string"] as! String,
+        location: (currentInfo["display_location"] as! [String: Any])["full"] as! String,
+        weather: currentInfo["weather"] as! String,
+        percipitation: currentInfo["wind_string"] as! String,
+        wind: currentInfo["precip_today_string"] as! String,
+        iconUrl: currentInfo["icon_url"] as! String
+      )
 
-    // Dispatch an action to notify the UI about the new fetched location
-    dispatch(ShowLocationDetails(location: location))
+      // Dispatch an action to notify the UI about the new fetched location
+      dispatch(ShowLocationDetails(location: location))
+    }.resume()
   }
 
   return action
@@ -105,12 +111,20 @@ func createLoadFromDiskAction() -> Action {
   let path = NSHomeDirectory() + "/Documents/my_locations.json"
 
   // Create an async action to read the path from disk
-  let action = DiskReadAsyncAction(path: path) { data, dispatch in
-    // Callback receives the data and the dispatch action
-    let locations = try! JSONDecoder().decode(MyLocations.self, from: data!)
+  // Check another sample implementation for Disk Read AsyncAction here -> https://gist.github.com/nsomar/67726fe36e377eb582c9486d732ad57d
+  let action = BlockAsyncAction { (getState, dispatch) in
 
-    // We create an action and then dispatch it
-    dispatch(MyLocationsLoadedFromDisk(locations: locations))
+    // Read disk in the background
+    DispatchQueue(label: "READQUEUE").async {
+
+      if let data = FileManager.default.contents(atPath: path) {
+        // Read the data and parse it
+        let locations = try! JSONDecoder().decode(MyLocations.self, from: data)
+
+        // We create an action and then dispatch it
+        dispatch(MyLocationsLoadedFromDisk(locations: locations))
+      }
+    }
   }
 
   return action
@@ -119,11 +133,22 @@ func createLoadFromDiskAction() -> Action {
 // Creates an action that write to disk asynchronously
 func createSaveToDiskAction(locations: MyLocations) -> Action {
   let path = NSHomeDirectory() + "/Documents/my_locations.json"
-  let data = try! JSONEncoder().encode(locations)
 
   // Create an async action with the path and the data
-  let action = DiskWriteAsyncAction(path: path, data: data) { _, _ in
-    // Nothing to do here
+  // Check another sample implementation for Disk Write AsyncAction here -> https://gist.github.com/nsomar/95bdb3f57cb482dd3ae21255770671f1
+  let action = BlockAsyncAction { (getState, dispatch) in
+
+    // Read disk in the background
+    DispatchQueue(label: "WRITEQUEUE").async {
+
+      // Convert to data
+      let data = try! JSONEncoder().encode(locations)
+
+      // Write the data to disk
+      FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
+
+      // We can dispatch an action or ignore it
+    }
   }
 
   return action
