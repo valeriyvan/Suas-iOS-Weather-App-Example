@@ -1,2 +1,2 @@
-github "zendesk/suas-ios" "8f7b30b19a6c89adde2de0a465cef6d11d5d4edb"
-github "zendesk/suas-ios-monitor-middleware" "2f084daf47c3cdd330a7997e65c7ad01e9bedf98"
+github "zendesk/suas-ios" "1.0.0"
+github "zendesk/suas-ios-monitor-middleware" "1.0.0"

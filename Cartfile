@@ -1,2 +1,2 @@
-github "zendesk/suas-ios" "master"
-github "zendesk/suas-ios-monitor-middleware" "master"
+github "zendesk/suas-ios" ~> 1.0
+github "zendesk/suas-ios-monitor-middleware" ~> 1.0
