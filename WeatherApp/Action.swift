@@ -142,7 +142,7 @@ func createSaveToDiskAction(locations: MyLocations) -> Action {
     DispatchQueue.global(qos: .userInitiated).async {
 
       // Convert to data
-      let data = try! JSONEncoder().encode(locations)
+      guard let data = try? JSONEncoder().encode(locations) else { return }
 
       // Write the data to disk
       FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
