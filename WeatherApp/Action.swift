@@ -130,7 +130,7 @@ func createLoadFromDiskAction() -> Action {
   return action
 }
 
-// Creates an action that write to disk asynchronously
+// Creates an action that writes to disk asynchronously
 func createSaveToDiskAction(locations: MyLocations) -> Action {
   let path = NSHomeDirectory() + "/Documents/my_locations.json"
 
@@ -138,8 +138,8 @@ func createSaveToDiskAction(locations: MyLocations) -> Action {
   // Check another sample implementation for Disk Write AsyncAction here -> https://gist.github.com/nsomar/95bdb3f57cb482dd3ae21255770671f1
   let action = BlockAsyncAction { (getState, dispatch) in
 
-    // Read disk in the background
-    DispatchQueue(label: "WRITEQUEUE").async {
+    // Write to disk in the background
+    DispatchQueue.global(qos: .userInitiated).async {
 
       // Convert to data
       let data = try! JSONEncoder().encode(locations)
