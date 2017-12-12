@@ -54,7 +54,7 @@ class SearchLocationViewController: UITableViewController, UISearchResultsUpdati
 
   func updateSearchResults(for searchController: UISearchController) {
     let text = searchController.searchBar.text ?? ""
-    guard text.characters.count > 2 else { return }
+    guard text.count > 2 else { return }
 
     // Dispatch the async fetch notwork action to fetch cities
     store.dispatch(action: createSearchForLocationsAction(query: text))
