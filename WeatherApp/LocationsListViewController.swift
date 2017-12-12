@@ -75,8 +75,7 @@ class LocationCell: UITableViewCell {
 
   var location: Location! {
     didSet {
-      guard let l = location else { return }
-      cityName.text = l.name
+      cityName.text = location?.name
     }
   }
 }
