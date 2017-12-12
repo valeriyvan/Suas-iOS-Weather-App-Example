@@ -16,8 +16,6 @@
 		D7ACA5981F2679B900EAD348 /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ACA5921F2679B900EAD348 /* Reducer.swift */; };
 		D7ACA5991F2679B900EAD348 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ACA5931F2679B900EAD348 /* Action.swift */; };
 		D7ACA59A1F2679B900EAD348 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ACA5941F2679B900EAD348 /* State.swift */; };
-		D7ACA59F1F2679D500EAD348 /* SuasMonitorMiddleware.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59C1F2679D500EAD348 /* SuasMonitorMiddleware.framework */; };
-		D7ACA5A01F2679D500EAD348 /* Suas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59D1F2679D500EAD348 /* Suas.framework */; };
 		D7ACA5A21F2679DE00EAD348 /* SuasMonitorMiddleware.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59C1F2679D500EAD348 /* SuasMonitorMiddleware.framework */; };
 		D7ACA5A31F2679DE00EAD348 /* SuasMonitorMiddleware.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59C1F2679D500EAD348 /* SuasMonitorMiddleware.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D7ACA5A41F2679DE00EAD348 /* Suas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7ACA59D1F2679D500EAD348 /* Suas.framework */; };
@@ -62,8 +60,6 @@
 			files = (
 				D7ACA5A21F2679DE00EAD348 /* SuasMonitorMiddleware.framework in Frameworks */,
 				D7ACA5A41F2679DE00EAD348 /* Suas.framework in Frameworks */,
-				D7ACA5A01F2679D500EAD348 /* Suas.framework in Frameworks */,
-				D7ACA59F1F2679D500EAD348 /* SuasMonitorMiddleware.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,7 +137,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Omar Abdelhafith";
 				TargetAttributes = {
 					D77E304E1F26785B00E9572D = {
