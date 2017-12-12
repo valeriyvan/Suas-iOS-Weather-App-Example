@@ -50,7 +50,8 @@ func createSearchForLocationsAction(query: String) -> Action {
   // Create a`BlockAsyncAction` async action that fetches the url
   // Check another sample implementation here -> https://gist.github.com/nsomar/b47642d52b95b39fd9daddcd36aaf333
   let action = BlockAsyncAction { (getState, dispatch) in
-    URLSession(configuration: .default).dataTask(with: url) { data, resp, error in
+    let session = URLSession(configuration: .default)
+    let task = session.dataTask(with: url) { data, resp, error in
       // Callback called with `data`, `response`, and `error`
       // Parse data to JSON
       let resp = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
@@ -67,7 +68,9 @@ func createSearchForLocationsAction(query: String) -> Action {
 
       // Create a `LocationsFetchedFromNetwork` action that contains the fetched cities
       dispatch(LocationsFetchedFromNetwork(query: query, locations: cities))
-    }.resume()
+    }
+    task.resume()
+    session.finishTasksAndInvalidate()
   }
 
   return action
@@ -80,7 +83,8 @@ func createFetchLocationDetailsAction(location: Location) -> Action {
   // Create a`BlockAsyncAction` async action that fetches the url
   // Check another sample implementation for URL AsyncAction here -> https://gist.github.com/nsomar/b47642d52b95b39fd9daddcd36aaf333
   let action = BlockAsyncAction { (getState, dispatch) in
-    URLSession(configuration: .default).dataTask(with: url) { data, resp, error in
+    let session = URLSession(configuration: .default)
+    let task = session.dataTask(with: url) { data, resp, error in
       // Callback called with `data`, `response`, and`error`
       guard let data = data else { return }
 
@@ -100,7 +104,9 @@ func createFetchLocationDetailsAction(location: Location) -> Action {
 
       // Dispatch an action to notify the UI about the new fetched location
       dispatch(ShowLocationDetails(location: location))
-    }.resume()
+    }
+    task.resume()
+    session.finishTasksAndInvalidate()
   }
 
   return action

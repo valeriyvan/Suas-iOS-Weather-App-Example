@@ -99,11 +99,14 @@ class LocationDetailsView: UIView {
       windLabel.text = "Wind: \(location.wind)"
 
       // Lazy code to fetch an image from the remote network
-      URLSession(configuration: .default).dataTask(with: URL(string: location.iconUrl)!) { data, _, _ in
-        DispatchQueue.main.async {
-          self.tempImage.image = UIImage(data: data!)
-        }
-        }.resume()
+      let session = URLSession(configuration: .default)
+      let task = session.dataTask(with: URL(string: location.iconUrl)!) { data, _, _ in
+          DispatchQueue.main.async {
+            self.tempImage.image = UIImage(data: data!)
+          }
+      }
+      task.resume()
+      session.finishTasksAndInvalidate()
     }
   }
 }
