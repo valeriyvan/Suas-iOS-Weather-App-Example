@@ -16,17 +16,17 @@ class FindLocationReducer: Reducer {
 
   func reduce(state: FoundLocations, action: Action) -> FoundLocations? {
     
-    if let action = action as? LocationsFetchedFromNetwork {
-      // New locations were fetched from the network
-      var newState = state
-      newState.foundLocation = action.locations
-      newState.query = action.query
-      return newState
-    }
-
-    // If action is unknown return nil to signify that state did not change
-    return nil
+    guard let action = action as? LocationsFetchedFromNetwork else {
+		  // If action is unknown return nil to signify that state did not change
+		  return nil
+	  }
+    // New locations were fetched from the network
+    var newState = state
+    newState.foundLocation = action.locations
+    newState.query = action.query
+    return newState
   }
+
 }
 
 // Current Location reducer
