@@ -65,7 +65,7 @@ class SearchLocationViewController: UITableViewController, UISearchResultsUpdati
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+    let cell = tableView.dequeueReusableCell(withIdentifier: "CityCell", for: indexPath)
     cell.textLabel?.text = foundLocations.foundLocation[indexPath.row].name
     return cell
   }
