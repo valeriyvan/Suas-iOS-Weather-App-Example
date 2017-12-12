@@ -43,7 +43,7 @@ struct LocationDetails: Decodable, SuasEncodable {
   // In swift 3.2 there is no need to implement `SuasEncodable``toDictionary`.
   // `SuasEncodable` already implements the `Encodable` protocol.
   //
-  // Just implement `SuasEncodable` and thats it, no need to wrie any more code, your types are ready to be sent to Suas monitor!
+  // Just implement `SuasEncodable` and that's it, no need to write any more code, your types are ready to be sent to Suas monitor!
 #else
   extension FoundLocations {
     public func toDictionary() -> [String : Any] {
